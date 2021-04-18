@@ -19,3 +19,6 @@ $router->get('/', function () use ($router) {
 
 // Test Timeline
 $router->get('/timeline',  'TwitterController@getTimeline' );
+
+// Test RSS
+$router->get('/rss',  'RssController@getRss' );
