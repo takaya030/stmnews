@@ -113,6 +113,7 @@ $app->register(App\Providers\OAuthServiceProvider::class);
 */
 
 $app->configure('oauth-lumen');
+$app->configure('accounts');
 
 /*
 |--------------------------------------------------------------------------
