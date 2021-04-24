@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use \Illuminate\Http\Request;
+use App\Models\Google\Datastore;
 use \Carbon\Carbon;
 
 class RssController extends Controller
@@ -38,6 +39,17 @@ class RssController extends Controller
 					'timestamp'		=> Carbon::createFromFormat( 'Y-m-d H:i:s T', $item->get_date('Y-m-d H:i:s T') )->timestamp,	//記事投稿時刻
 				];
 			}
+
+			if( isset( $data[0] ) )
+			{
+				$datastore = new Datastore();
+				$datastore->insert( env('DATASTORE_KIND'), [
+					'user_id'	=> env('TWITTER_USER_ID'),
+					'timestamp' => $data[0]['timestamp'],
+					'url' => $data[0]['url'],
+				] );
+			}
+
 			dd( $data );
 		}
 		else
