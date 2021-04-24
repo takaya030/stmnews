@@ -28,6 +28,7 @@ return [
 		'refresh_token'	=> env('GOOGLE_REFRESH_TOKEN'),
 
 		'project_id'	=> env('GOOGLE_PROJECT_ID'),
+		'datastore_kind'	=> env('DATASTORE_KIND'),
 	],
 
 ];
