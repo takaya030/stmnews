@@ -33,4 +33,11 @@ return [
 		'datastore_kind'	=> env('DATASTORE_KIND'),
 	],
 
+	/**
+	 * RSS
+	 */
+	'rss' => [
+		'url'	=> env('RSS_URL'),
+	],
+
 ];
