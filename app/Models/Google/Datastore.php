@@ -124,12 +124,12 @@ EOM;
 
 	static protected function getPropertyString( $key, $value )
 	{
-		$tyep_str = 'stringValue';
+		$type_str = 'stringValue';
 
 		if( is_numeric($value) )
 			$type_str = 'integerValue';
 		if( is_null($value) )
-			$tyep_str = 'nullValue';
+			$type_str = 'nullValue';
 
 		return "\"{$key}\":{\"{$type_str}\":\"{$value}\"}";
 	}
