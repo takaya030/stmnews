@@ -26,6 +26,11 @@ return [
 			'client_secret' => env('TWITTER_CLIENT_SECRET'),
 			//'scope'         => [],				// No scope - oauth1 doesn't need scope
 		],
+		'MyGoogle' => [
+			'client_id'     => env('GOOGLE_CLIENT_ID'),
+			'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+			'scope'         => ['https://www.googleapis.com/auth/datastore'],
+		],
 
 	]
 
