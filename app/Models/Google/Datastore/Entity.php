@@ -23,14 +23,17 @@ class Entity
 	 * @param int $version	Version of the entity (optional)
 	 * @param string $name	Name of the entity
 	 */
-	public function __construct( array $ent, int $version = 0, string $name = '' )
+	public function __construct( array $ent = [], int $version = 0, string $name = '' )
 	{
 		$this->projectId = config('accounts.google.project_id');
 		$this->kind = config('accounts.google.datastore_kind');
 		$this->name = $name;
 		$this->id = null;
 
-		$this->parse( $ent, $version );
+		if( !empty($ent) )
+		{
+			$this->parse( $ent, $version );
+		}
 	}
 
 	protected function parse( array $ent, int $version = 0 )
