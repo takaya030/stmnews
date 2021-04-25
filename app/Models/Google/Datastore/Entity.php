@@ -73,6 +73,30 @@ class Entity
 	}
 
 	/**
+	 * @param int $value			id value
+	 */
+	public function setId( int $value )
+	{
+		if( is_numeric($value) )
+		{
+			$this->id = $value;
+			$this->name = null;
+		}
+	}
+
+	/**
+	 * @param string $value			name value
+	 */
+	public function setName( string $value )
+	{
+		if( is_string($value) )
+		{
+			$this->name = $value;
+			$this->id = null;
+		}
+	}
+
+	/**
 	 * Output json string of Entity format
 	 *
 	 * @param bool $with_version	If true, contain version
