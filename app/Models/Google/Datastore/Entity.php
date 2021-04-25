@@ -10,6 +10,7 @@ class Entity
 	// key/path
 	protected $kind;
 	protected $name;
+	protected $id;
 
 	// properties
 	protected $properties = [];
@@ -27,6 +28,7 @@ class Entity
 		$this->projectId = config('accounts.google.project_id');
 		$this->kind = config('accounts.google.datastore_kind');
 		$this->name = $name;
+		$this->id = null;
 
 		$this->parse( $ent, $version );
 	}
@@ -36,6 +38,7 @@ class Entity
 		$this->projectId = isset($ent['key']['partitionId']['projectId']) ? $ent['key']['partitionId']['projectId'] : null;
 		$this->kind = isset($ent['key']['path'][0]['kind']) ? $ent['key']['path'][0]['kind'] : null;
 		$this->name = isset($ent['key']['path'][0]['name']) ? $ent['key']['path'][0]['name'] : null;
+		$this->id = isset($ent['key']['path'][0]['id']) ? $ent['key']['path'][0]['id'] : null;
 
 		if( is_array($ent['properties']) )
 		{
