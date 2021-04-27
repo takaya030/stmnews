@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use \Illuminate\Http\Request;
 use App\Models\Google\Datastore;
 use \Carbon\Carbon;
+use Google\Cloud\Datastore\DatastoreClient;
 
 class RssController extends Controller
 {
@@ -56,5 +57,18 @@ class RssController extends Controller
 		{
 			dd( $feed->error() );
 		}
+	}
+
+    // test gettine datastore
+	public function getData(Request $request)
+	{
+		$datastore = new DatastoreClient([
+			'keyFilePath' => storage_path( 'app/' . env('GOOGLE_KEY_FILE') )
+		]);
+
+		// If you know the ID of the entity, you can look it up
+		$key = $datastore->key('StmNews', '5079418695319552');
+		$entity = $datastore->lookup($key);
+		dd($entity);
 	}
 }
