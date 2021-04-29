@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use \Illuminate\Http\Request;
 use App\Models\Google\Datastore;
+use App\Models\Google\News\Item as NewsItem;
 use \Carbon\Carbon;
 use Google\Cloud\Datastore\DatastoreClient;
 
@@ -23,7 +24,7 @@ class RssController extends Controller
 	public function getRss(Request $request)
 	{
 		$feed = new \SimplePie();
-		$feed->set_feed_url( env('RSS_URL') );
+		$feed->set_feed_url( config('accounts.rss.url') );
 		$feed->enable_cache(false); //キャッシュ機能はオフで使う
 		$success = $feed->init();
 		$feed->handle_content_type();
@@ -32,15 +33,10 @@ class RssController extends Controller
 		{
 			$data = [];
 			foreach ($feed->get_items() as $item) {
-				$data[] = [
-					//'site_title'	=> $item->get_feed()->get_title(),		//サイトタイトル
-					'title'			=> $item->get_title(),					//記事タイトル
-					'url'			=> $item->get_link(),					//記事URL
-					'date'			=> $item->get_date('Y-m-d H:i:s T'),	//記事投稿時刻
-					'timestamp'		=> Carbon::createFromFormat( 'Y-m-d H:i:s T', $item->get_date('Y-m-d H:i:s T') )->timestamp,	//記事投稿時刻
-				];
+				$data[] = new NewsItem( $item );
 			}
 
+			/*
 			if( isset( $data[0] ) )
 			{
 				$datastore = new Datastore();
@@ -50,6 +46,7 @@ class RssController extends Controller
 					'url' => $data[0]['url'],
 				] );
 			}
+			 */
 
 			dd( $data );
 		}
