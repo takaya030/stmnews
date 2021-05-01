@@ -3,7 +3,6 @@
 namespace App\Models\Google;
 
 use Google\Cloud\Datastore\DatastoreClient;
-use \App\Models\Google\Datastore\Entity;
 
 class Datastore
 {
@@ -11,9 +10,6 @@ class Datastore
 	protected $kind = '';
 	protected $entities = [];
 	protected $is_cached_entities = false;
-
-	protected $list_labels = [];
-	protected $base_url = '';
 
 	public function __construct( DatastoreClient $dsc, string $knd )
 	{
