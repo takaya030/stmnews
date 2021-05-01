@@ -25,30 +25,19 @@ class Datastore
 
 	public function getAll()
 	{
-		$googleService = $this->getOauthService();
+		if( !$this->is_cached_entities )
+		{
+			$query = $this->dsclient->gqlQuery('SELECT * FROM ' . $this->kind );
+			$res = $datastore->runQuery($query);
 
-		$query = <<< EOM
-{
-	"gqlQuery":{
-		"queryString": "select * from " . config('accounts.google.datastore_kind') . " where nextindex = @1",
-		"positionalBindings": [
-			{"value": {"integerValue": 4032}}
-		]
-	}
-}
-EOM;
-		// Send a request with it
-		$result = json_decode(
-			$googleService->request(
-				$this->base_url . ':runQuery',
-				'POST',
-				$query,
-				[ 'Content-type' => 'application/json' ]
-			),
-			true
-		);
+			$this->entities = [];
+			foreach( $res as $ent ) {
+				$this->entities[] = $ent;
+			}
+			$this->is_cached_entities = true;
+		}
 
-		return $result;
+		return $this->entities;
 	}
 
 	public function lookup( string $kind, string $name )
