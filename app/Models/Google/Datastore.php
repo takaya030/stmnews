@@ -2,6 +2,7 @@
 
 namespace App\Models\Google;
 
+use Google\Cloud\Datastore\Key;
 use Google\Cloud\Datastore\DatastoreClient;
 
 class Datastore
