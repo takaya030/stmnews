@@ -20,7 +20,7 @@ class RssController extends Controller
         //
     }
 
-    // test gettine rss
+    // test getting rss
 	public function getRss(Request $request)
 	{
 		$feed = new \SimplePie();
@@ -56,7 +56,7 @@ class RssController extends Controller
 		}
 	}
 
-    // test gettine datastore
+    // test getting datastore
 	public function getData(Request $request)
 	{
 		$datastore = new DatastoreClient([
