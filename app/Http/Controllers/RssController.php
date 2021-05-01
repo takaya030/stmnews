@@ -36,17 +36,19 @@ class RssController extends Controller
 				$data[] = new NewsItem( $item );
 			}
 
-			/*
 			if( isset( $data[0] ) )
 			{
-				$datastore = new Datastore();
-				$datastore->insert( env('DATASTORE_KIND'), [
+				$dsc = new DatastoreClient([
+					'keyFilePath' => storage_path( config('accounts.google.key_file') )
+				]);
+
+				$datastore = new Datastore( $dsc, config('accounts.google.datastore_kind') );
+				$datastore->insert([
 					'user_id'	=> env('TWITTER_USER_ID'),
-					'timestamp' => $data[0]['timestamp'],
-					'url' => $data[0]['url'],
-				] );
+					'timestamp' => $data[0]->getTimestamp(),
+					'url' => $data[0]->getUrl(),
+				]);
 			}
-			 */
 
 			dd( $data );
 		}
