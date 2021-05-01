@@ -2,18 +2,23 @@
 
 namespace App\Models\Google;
 
+use Google\Cloud\Datastore\DatastoreClient;
 use \App\Models\Google\Datastore\Entity;
 
-class Datastore extends OAuthClient
+class Datastore
 {
+	protected $dsclient = null;
+	protected $entities = [];
+	protected $is_cached_entities = false;
+
 	protected $list_labels = [];
 	protected $base_url = '';
 
-	public function __construct( bool $is_refresh_token = true )
+	public function __construct( DatastoreClient $dsc )
 	{
-		parent::__construct( $is_refresh_token );
-
-		$this->base_url = 'https://datastore.googleapis.com/v1/projects/' . config('accounts.google.project_id');
+		$this->dsclient = $dsc;
+		$this->entities = [];
+		$this->is_cached_entities = false;
 	}
 
 	public function getAll()
