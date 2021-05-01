@@ -61,24 +61,12 @@ class RssController extends Controller
     // test getting datastore
 	public function getData(Request $request)
 	{
-		$datastore = new DatastoreClient([
+		$dsc = new DatastoreClient([
 			'keyFilePath' => storage_path( config('accounts.google.key_file') )
 		]);
 
-		/*
-		// If you know the ID of the entity, you can look it up
-		$key = $datastore->key('StmNews', '5079418695319552');
-		$entity = $datastore->lookup($key);
-		dd($entity);
-		 */
-
-		$query = $datastore->gqlQuery('SELECT * FROM ' . config('accounts.google.datastore_kind'));
-		$res = $datastore->runQuery($query);
-
-		$entitys = [];
-		foreach( $res as $ent ) {
-			$entitys[] = $ent;
-		}
+		$datastore = new Datastore( $dsc, config('accounts.google.datastore_kind') );
+		$entitys = $datastore->getAll();
 		dd($entitys);
 	}
 }
