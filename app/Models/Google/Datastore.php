@@ -25,7 +25,7 @@ class Datastore
 		if( !$this->is_cached_entities )
 		{
 			$query = $this->dsclient->gqlQuery('SELECT * FROM ' . $this->kind );
-			$res = $datastore->runQuery($query);
+			$res = $this->dsclient->runQuery($query);
 
 			$this->entities = [];
 			foreach( $res as $ent ) {
