@@ -8,15 +8,17 @@ use \App\Models\Google\Datastore\Entity;
 class Datastore
 {
 	protected $dsclient = null;
+	protected $kind = '';
 	protected $entities = [];
 	protected $is_cached_entities = false;
 
 	protected $list_labels = [];
 	protected $base_url = '';
 
-	public function __construct( DatastoreClient $dsc )
+	public function __construct( DatastoreClient $dsc, string $knd )
 	{
 		$this->dsclient = $dsc;
+		$this->kind = $kdn;
 		$this->entities = [];
 		$this->is_cached_entities = false;
 	}
