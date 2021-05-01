@@ -48,49 +48,6 @@ class Datastore
 		return $this->dsclient->insert($entity);
 	}
 
-	public function upsert( string $kind, string $name, array $properties )
-	{
-		$googleService = $this->getOauthService();
-		$projectId = config('accounts.google.project_id');
-		$params_str= "";
-
-		foreach( $properties as $key => $value )
-		{
-			if( empty($params_str) )
-				$params_str = static::getPropertyString( $key, $value );
-			else
-				$params_str .= ',' . static::getPropertyString( $key, $value );
-		}
-
-		$body = <<< EOM
-{
-	"mode":"NON_TRANSACTIONAL",
-	"mutations":[
-		{
-			"upsert": {
-				"key":{ "partitionId":{ "projectId":"{$projectId}" }, "path":[ {"kind":"{$kind}","name":"{$name}"} ] },
-				"properties": {
-					{$params_str}
-				}
-			}
-		}
-	 ]
-}
-EOM;
-		// Send a request with it
-		$result = json_decode(
-			$googleService->request(
-				$this->base_url . ':commit',
-				'POST',
-				$body,
-				[ 'Content-type' => 'application/json' ]
-			),
-			true
-		);
-
-		return $result;
-	}
-
 	static protected function getPropertyString( $key, $value )
 	{
 		$type_str = 'stringValue';
