@@ -14,7 +14,7 @@ class Datastore
 	public function __construct( DatastoreClient $dsc, string $knd )
 	{
 		$this->dsclient = $dsc;
-		$this->kind = $kdn;
+		$this->kind = $knd;
 		$this->entities = [];
 		$this->is_cached_entities = false;
 	}
