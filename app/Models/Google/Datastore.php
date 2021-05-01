@@ -40,41 +40,6 @@ class Datastore
 		return $this->entities;
 	}
 
-	public function lookup( string $kind, string $name )
-	{
-		$googleService = $this->getOauthService();
-		$projectId = config('accounts.google.project_id');
-
-		$body = <<< EOM
-{
-	"keys":[
-		{ "partitionId":{ "projectId":"{$projectId}"}, "path":[ {"kind":"{$kind}","name":"{$name}"} ] }
-	 ]
-}
-EOM;
-		// Send a request with it
-		$result = json_decode(
-			$googleService->request(
-				$this->base_url . ':lookup',
-				'POST',
-				$body,
-				[ 'Content-type' => 'application/json' ]
-			),
-			true
-		);
-
-		if( isset($result['found'][0]['entity']) )
-		{
-			$entity = new Entity( $result['found'][0]['entity'], $result['found'][0]['version'] );
-		}
-		else
-		{
-			$entity = $result;
-		}
-
-		return $entity;
-	}
-
 	public function insert( string $kind, array $properties )
 	{
 		$googleService = $this->getOauthService();
