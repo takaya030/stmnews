@@ -40,47 +40,12 @@ class Datastore
 		return $this->entities;
 	}
 
-	public function insert( string $kind, array $properties )
+	public function insert( array $properties )
 	{
-		$googleService = $this->getOauthService();
-		$projectId = config('accounts.google.project_id');
-		$params_str= "";
+		$key = $this->dsclient->key( $this->kind, null, [ 'identifierType' => Key::TYPE_ID ] );
+		$entity = $this->dsclient->entity( $key, $properties );
 
-		foreach( $properties as $key => $value )
-		{
-			if( empty($params_str) )
-				$params_str = static::getPropertyString( $key, $value );
-			else
-				$params_str .= ',' . static::getPropertyString( $key, $value );
-		}
-
-		$body = <<< EOM
-{
-	"mode":"NON_TRANSACTIONAL",
-	"mutations":[
-		{
-			"insert": {
-				"key":{ "partitionId":{ "projectId":"{$projectId}" }, "path":[ {"kind":"{$kind}"} ] },
-				"properties": {
-					{$params_str}
-				}
-			}
-		}
-	 ]
-}
-EOM;
-		// Send a request with it
-		$result = json_decode(
-			$googleService->request(
-				$this->base_url . ':commit',
-				'POST',
-				$body,
-				[ 'Content-type' => 'application/json' ]
-			),
-			true
-		);
-
-		return $result;
+		return $this->dsclient->insert($entity);
 	}
 
 	public function upsert( string $kind, string $name, array $properties )
