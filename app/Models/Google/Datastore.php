@@ -47,16 +47,4 @@ class Datastore
 
 		return $this->dsclient->insert($entity);
 	}
-
-	static protected function getPropertyString( $key, $value )
-	{
-		$type_str = 'stringValue';
-
-		if( is_numeric($value) )
-			$type_str = 'integerValue';
-		if( is_null($value) )
-			$type_str = 'nullValue';
-
-		return "\"{$key}\":{\"{$type_str}\":\"{$value}\"}";
-	}
 }
