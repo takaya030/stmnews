@@ -102,8 +102,19 @@ class RssController extends Controller
 		$datastore = new Datastore( $dsc, config('accounts.google.datastore_kind') );
 
 		$oldest_timestamp = Carbon::now()->subHours(36)->timestamp;
-		$entitys = $datastore->getBeforeAll( $oldest_timestamp );
+		$entities = $datastore->getBeforeAll( $oldest_timestamp );
 
-		dd($entitys);
+		$delents = [];
+		foreach( $entities as $entity )
+		{
+			$delents[] = $entity->key();
+		}
+
+		if( !empty( $delents ) )
+		{
+			$result = $datastore->deleteBatch( $delents );
+		}
+
+		dd([$delents, $result]);
 	}
 }
