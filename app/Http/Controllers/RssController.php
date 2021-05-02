@@ -32,8 +32,13 @@ class RssController extends Controller
 		if ($success)
 		{
 			$data = [];
+			$oldest_timestamp = Carbon::now()->subHours(36)->timestamp;
 			foreach ($feed->get_items() as $item) {
-				array_unshift( $data, new NewsItem( $item ) );
+				$news = new NewsItem( $item );
+				if( $news->getTimestamp() > $oldest_timestamp )
+				{
+					array_unshift( $data, $news );
+				}
 			}
 
 			if( isset( $data[0] ) )
@@ -41,16 +46,19 @@ class RssController extends Controller
 				$dsc = new DatastoreClient([
 					'keyFilePath' => storage_path( config('accounts.google.key_file') )
 				]);
-
 				$datastore = new Datastore( $dsc, config('accounts.google.datastore_kind') );
+				/*
 				$datastore->insert([
 					'user_id'	=> config('accounts.twitter.user_id'),
 					'timestamp' => $data[0]->getTimestamp(),
 					'url' => $data[0]->getUrl(),
 				]);
+				 */
+				$url_list = $this->makeStoredUrlList( $datastore );
 			}
 
-			dd( $data );
+			//dd( $data );
+			dd( $url_list );
 		}
 		else
 		{
@@ -58,6 +66,19 @@ class RssController extends Controller
 				'error' => $feed->error(),
 			]);
 		}
+	}
+
+	private function makeStoredUrlList( Datastore $ds )
+	{
+		$result = [];
+		$entities = $ds->getAll();
+
+		foreach( $entities as $entity )
+		{
+			$result[] = $entity['url'];
+		}
+
+		return $result;
 	}
 
     // test getting datastore
