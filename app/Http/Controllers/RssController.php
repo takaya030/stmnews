@@ -47,18 +47,30 @@ class RssController extends Controller
 					'keyFilePath' => storage_path( config('accounts.google.key_file') )
 				]);
 				$datastore = new Datastore( $dsc, config('accounts.google.datastore_kind') );
-				/*
-				$datastore->insert([
-					'user_id'	=> config('accounts.twitter.user_id'),
-					'timestamp' => $data[0]->getTimestamp(),
-					'url' => $data[0]->getUrl(),
-				]);
-				 */
+
 				$url_list = $this->makeStoredUrlList( $datastore );
+
+				/*
+				foreach( $data as $news )
+				{
+					if( !in_array( $news->getUrl(), $url_list, true ) )
+					{
+						$datastore->insert([
+							'user_id'	=> config('accounts.twitter.user_id'),
+							'timestamp' => $news->getTimestamp(),
+							'url' => $news->getUrl(),
+						]);
+
+						break;
+					}
+				}
+				 */
+
 			}
 
+			dd( $datastore->getAll() );
 			//dd( $data );
-			dd( $url_list );
+			//dd( $url_list );
 		}
 		else
 		{
@@ -81,15 +93,17 @@ class RssController extends Controller
 		return $result;
 	}
 
-    // test getting datastore
-	public function getData(Request $request)
+    // test delete entities
+	public function getDelent(Request $request)
 	{
 		$dsc = new DatastoreClient([
 			'keyFilePath' => storage_path( config('accounts.google.key_file') )
 		]);
-
 		$datastore = new Datastore( $dsc, config('accounts.google.datastore_kind') );
-		$entitys = $datastore->getAll();
+
+		$oldest_timestamp = Carbon::now()->subHours(36)->timestamp;
+		$entitys = $datastore->getBeforeAll( $oldest_timestamp );
+
 		dd($entitys);
 	}
 }

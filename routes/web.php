@@ -23,5 +23,5 @@ $router->get('/timeline',  'TwitterController@getTimeline' );
 // Test RSS
 $router->get('/rss',  'RssController@getRss' );
 
-// Test Datastore
-$router->get('/data',  'RssController@getData' );
+// Test Delete Entities
+$router->get('/delent',  'RssController@getDelent' );
