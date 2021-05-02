@@ -37,6 +37,23 @@ class Datastore
 		return $this->entities;
 	}
 
+	public function getBeforeAll( int $timestamp )
+	{
+		$query = $this->dsclient->gqlQuery('SELECT * FROM ' . $this->kind . ' WHERE timestamp < @tm', [
+			'bindings' => [
+				'tm' =>	$timestamp
+			]
+		]);
+		$res = $this->dsclient->runQuery($query);
+
+		$result = [];
+		foreach( $res as $ent ) {
+			$result[] = $ent;
+		}
+
+		return $result;
+	}
+
 	public function insert( array $properties )
 	{
 		$key = $this->dsclient->key( $this->kind, null, [ 'identifierType' => Key::TYPE_ID ] );
