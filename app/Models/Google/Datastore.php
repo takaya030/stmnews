@@ -61,4 +61,9 @@ class Datastore
 
 		return $this->dsclient->insert($entity);
 	}
+
+	public function deleteBatch( array $keys )
+	{
+		return $this->dsclient->deleteBatch( $keys );
+	}
 }
