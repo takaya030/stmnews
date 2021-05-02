@@ -33,7 +33,7 @@ class RssController extends Controller
 		{
 			$data = [];
 			foreach ($feed->get_items() as $item) {
-				$data[] = new NewsItem( $item );
+				array_unshift( $data, new NewsItem( $item ) );
 			}
 
 			if( isset( $data[0] ) )
@@ -44,7 +44,7 @@ class RssController extends Controller
 
 				$datastore = new Datastore( $dsc, config('accounts.google.datastore_kind') );
 				$datastore->insert([
-					'user_id'	=> env('TWITTER_USER_ID'),
+					'user_id'	=> config('accounts.twitter.user_id'),
 					'timestamp' => $data[0]->getTimestamp(),
 					'url' => $data[0]->getUrl(),
 				]);
@@ -54,7 +54,9 @@ class RssController extends Controller
 		}
 		else
 		{
-			dd( $feed->error() );
+			return response()->json([
+				'error' => $feed->error(),
+			]);
 		}
 	}
 
