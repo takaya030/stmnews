@@ -2,54 +2,20 @@
 
 namespace App\Models\Twitter;
 
-class Tweet
+class Tweet extends OAuthClient
 {
-	protected	$id	= 0;
-	protected	$created_at		= "";
-	protected	$full_text		= "";
-	protected	$lang			= "ja";
-
-	protected	$name			= "";
-	protected	$screen_name	= "";
-
-	public function __construct( array $tw = [] )
+	public function __construct()
 	{
-		$this->id			= $tw['id'] ?: 0;
-		$this->created_at	= $tw['created_at'] ?: "";
-		$this->full_text	= $tw['full_text'] ?: "";
-		$this->lang			= $tw['lang'] ?: "ja";
-		if( is_array($tw['user']) )
-			$this->name			=  $tw['user']['name'] ?: "";
-			$this->screen_name	=  $tw['user']['screen_name'] ?: "";
+		parent::__construct();
 	}
 
-	public function getStatusUrl(): string
+	public function postText( string $text )
 	{
-		return ( $this->id != 0 && $this->screen_name !== "")? "https://twitter.com/{$this->screen_name}/status/{$this->id}" : "";
-	}
+		$params = 'status=' . urlencode($text);
 
-	public function getCreatedAt(): string
-	{
-		return $this->created_at;
-	}
+		// Send a request with it
+		$result = json_decode( $this->service->request('https://api.twitter.com/1.1/statuses/update.json?'.$params, 'POST'), true);
 
-	public function getFullText(): string
-	{
-		return ( $this->full_text !== "")? str_replace( "\n", "<br>", $this->full_text ) : "";
-	}
-
-	public function getLang(): string
-	{
-		return $this->lang;
-	}
-
-	public function getName(): string
-	{
-		return $this->name;
-	}
-
-	public function getScreenName(): string
-	{
-		return $this->screen_name;
+		return $result;
 	}
 }
