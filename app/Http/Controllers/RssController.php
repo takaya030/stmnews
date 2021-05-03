@@ -115,6 +115,6 @@ class RssController extends Controller
 			$result = $datastore->deleteBatch( $delents );
 		}
 
-		dd([$delents, $result]);
+		//dd([$delents, $result]);
 	}
 }
