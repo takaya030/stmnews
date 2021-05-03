@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use \Illuminate\Http\Request;
 use App\Models\Google\Datastore;
 use App\Models\Google\News\Item as NewsItem;
+use App\Models\Twitter\Tweet;
 use \Carbon\Carbon;
 use Google\Cloud\Datastore\DatastoreClient;
 
@@ -50,11 +51,14 @@ class RssController extends Controller
 
 				$url_list = $this->makeStoredUrlList( $datastore );
 
-				/*
+				$tweet = new Tweet();
+
 				foreach( $data as $news )
 				{
 					if( !in_array( $news->getUrl(), $url_list, true ) )
 					{
+						$tweet->postText( $news->getTitle() . ' ' . $news->getUrl() );
+
 						$datastore->insert([
 							'user_id'	=> config('accounts.twitter.user_id'),
 							'timestamp' => $news->getTimestamp(),
@@ -64,7 +68,6 @@ class RssController extends Controller
 						break;
 					}
 				}
-				 */
 
 			}
 
