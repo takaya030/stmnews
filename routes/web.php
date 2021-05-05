@@ -14,11 +14,12 @@
 */
 
 $router->get('/', function () use ($router) {
-    return $router->app->version();
+    //return $router->app->version();
+    return '404 Not Found';
 });
 
 // Test Timeline
-$router->get('/timeline',  'TwitterController@getTimeline' );
+//$router->get('/timeline',  'TwitterController@getTimeline' );
 
 // Test RSS
 $router->get('/rss',  'RssController@getRss' );
