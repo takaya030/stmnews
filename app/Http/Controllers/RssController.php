@@ -59,11 +59,7 @@ class RssController extends Controller
 					{
 						$tweet->postNewsItem( $news );
 
-						$datastore->insert([
-							'user_id'	=> config('accounts.twitter.user_id'),
-							'timestamp' => $news->getTimestamp(),
-							'url' => $news->getUrl(),
-						]);
+						$datastore->insertNewsItem( $news );
 
 						break;
 					}

@@ -4,6 +4,7 @@ namespace App\Models\Google;
 
 use Google\Cloud\Datastore\Key;
 use Google\Cloud\Datastore\DatastoreClient;
+use App\Models\Google\News\Item as NewsItem;
 
 class Datastore
 {
@@ -52,6 +53,15 @@ class Datastore
 		}
 
 		return $result;
+	}
+
+	public function insertNewsitem( NewsItem $news )
+	{
+		return $this->insert([
+			'user_id'	=> config('accounts.twitter.user_id'),
+			'timestamp' => $news->getTimestamp(),
+			'url' => $news->getUrl(),
+		]);
 	}
 
 	public function insert( array $properties )
