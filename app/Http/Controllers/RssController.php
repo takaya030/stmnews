@@ -200,4 +200,31 @@ class RssController extends Controller
 			'result' => 0,
 		]);
 	}
+
+    // delete entities
+	public function getUmadelent(Request $request)
+	{
+		$dsc = new DatastoreClient([
+			'keyFilePath' => storage_path( config('accounts.google.key_file') )
+		]);
+		$datastore = new Datastore( $dsc, config('accounts.google.uma_datastore_kind') );
+
+		$oldest_timestamp = Carbon::now()->subHours(36)->timestamp;
+		$entities = $datastore->getBeforeAll( $oldest_timestamp );
+
+		$delents = [];
+		foreach( $entities as $entity )
+		{
+			$delents[] = $entity->key();
+		}
+
+		if( !empty( $delents ) )
+		{
+			$result = $datastore->deleteBatch( $delents );
+		}
+
+		return response()->json([
+			'result' => 0,
+		]);
+	}
 }
