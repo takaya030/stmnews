@@ -125,6 +125,7 @@ class RssController extends Controller
 				$url_list = $this->makeStoredUrlList( $datastore );
 
 				$tweet = new UmaTweet();
+				$user_id = config('accounts.twitter.uma_user_id');
 
 				foreach( $data as $news )
 				{
@@ -132,7 +133,7 @@ class RssController extends Controller
 					{
 						$tweet->postNewsItem( $news );
 
-						$datastore->insertNewsItem( $news );
+						$datastore->insertNewsItem( $news, $user_id );
 
 						$last_timestamp = $news->getTimestamp();
 						$tweets_cnt++;

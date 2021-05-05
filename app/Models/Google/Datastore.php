@@ -55,10 +55,15 @@ class Datastore
 		return $result;
 	}
 
-	public function insertNewsitem( NewsItem $news )
+	public function insertNewsitem( NewsItem $news, $user_id = null )
 	{
+		if( is_null($user_id) )
+		{
+			$user_id = config('accounts.twitter.user_id');
+		}
+
 		return $this->insert([
-			'user_id'	=> config('accounts.twitter.user_id'),
+			'user_id'	=> $user_id,
 			'timestamp' => $news->getTimestamp(),
 			'url' => $news->getUrl(),
 		]);
