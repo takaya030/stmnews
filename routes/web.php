@@ -27,3 +27,4 @@ $router->get('/umarss',  'RssController@getUmarss' );
 
 // Test Delete Entities
 $router->get('/delent',  'RssController@getDelent' );
+$router->get('/umadelent',  'RssController@getUmadelent' );
