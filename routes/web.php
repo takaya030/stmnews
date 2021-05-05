@@ -23,6 +23,7 @@ $router->get('/', function () use ($router) {
 
 // Test RSS
 $router->get('/rss',  'RssController@getRss' );
+$router->get('/umarss',  'RssController@getUmarss' );
 
 // Test Delete Entities
 $router->get('/delent',  'RssController@getDelent' );
