@@ -23,8 +23,8 @@ class UmaOAuthClient
         $token->setAccessToken( $acc['uma_access_token'] );
         $token->setAccessTokenSecret( $acc['uma_access_token_secret'] );
 
-		$service = app('oauth')->consumer('Twitter');
-		$service->getStorage()->storeAccessToken('Twitter', $token);
+		$service = app('oauth')->consumer('UmaTwitter');
+		$service->getStorage()->storeAccessToken('UmaTwitter', $token);
 
 		return $service;
 	}
