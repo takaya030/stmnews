@@ -57,7 +57,7 @@ class RssController extends Controller
 				{
 					if( !in_array( $news->getUrl(), $url_list, true ) )
 					{
-						$tweet->postText( $news->getTitle() . ' ' . $news->getUrl() );
+						$tweet->postNewsItem( $news );
 
 						$datastore->insert([
 							'user_id'	=> config('accounts.twitter.user_id'),
