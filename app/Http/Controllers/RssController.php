@@ -42,6 +42,9 @@ class RssController extends Controller
 				}
 			}
 
+			$max_tweets = 2;
+			$tweets_cnt = 0;
+			$last_timestamp = 0;
 			if( isset( $data[0] ) )
 			{
 				$dsc = new DatastoreClient([
@@ -61,15 +64,23 @@ class RssController extends Controller
 
 						$datastore->insertNewsItem( $news );
 
+						$last_timestamp = $news->getTimestamp();
+						$tweets_cnt++;
+						sleep(2);
+					}
+
+					if( $tweets_cnt >= $max_tweets )
+					{
 						break;
 					}
 				}
 
 			}
 
-			dd( $datastore->getAll() );
-			//dd( $data );
-			//dd( $url_list );
+			return response()->json([
+				'tweets_cnt' => $tweets_cnt,
+				'last_timestamp' => $last_timestamp,
+			]);
 		}
 		else
 		{
