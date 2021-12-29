@@ -12,8 +12,8 @@
     ],
     "require": {
         "php": "^7.3|^8.0",
-        "google/cloud-datastore": "^1.12",
-        "guzzlehttp/guzzle": "^7.3",
+        "google/cloud-datastore": "^1.13",
+        "guzzlehttp/guzzle": "^7.4",
         "laravel/lumen-framework": "^8.0",
         "simplepie/simplepie": "^1.5",
         "takaya030/oauth-lumen": "dev-master"
