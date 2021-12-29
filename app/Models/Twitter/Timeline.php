@@ -2,7 +2,7 @@
 
 namespace App\Models\Twitter;
 
-class Timeline extends OAuthClient
+class Timeline extends LeagueOAuthClient
 {
 	public function __construct()
 	{
@@ -19,7 +19,7 @@ class Timeline extends OAuthClient
 		];
 
 		// Send a request with it
-		$result = json_decode($this->service->request('https://api.twitter.com/1.1/statuses/home_timeline.json?'.http_build_query($params),'GET'), true);
+		$result = json_decode($this->request('statuses/home_timeline.json','GET',$params), true);
 
 		return $result;
 	}
