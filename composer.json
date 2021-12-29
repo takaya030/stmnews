@@ -15,6 +15,7 @@
         "google/cloud-datastore": "^1.13",
         "guzzlehttp/guzzle": "^7.4",
         "laravel/lumen-framework": "^8.0",
+        "league/oauth1-client": "^1.10",
         "simplepie/simplepie": "^1.5",
         "takaya030/oauth-lumen": "dev-master"
     },
