@@ -4,7 +4,7 @@ namespace App\Models\Twitter;
 
 use App\Models\Google\News\Item as NewsItem;
 
-class Tweet extends OAuthClient
+class Tweet extends LeagueOAuthClient
 {
 	public function __construct()
 	{
@@ -21,7 +21,7 @@ class Tweet extends OAuthClient
 		$params = 'status=' . urlencode($text);
 
 		// Send a request with it
-		$result = json_decode( $this->service->request('https://api.twitter.com/1.1/statuses/update.json?'.$params, 'POST'), true);
+		$result = json_decode( $this->request('statuses/update.json?'.$params, 'POST'), true);
 
 		return $result;
 	}
