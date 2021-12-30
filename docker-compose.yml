@@ -5,5 +5,7 @@ services:
       context: .
       dockerfile: ./Dockerfile
     image: "gcr.io/${GOOGLE_PROJECT_ID}/stmnews"
+    environment:
+      - APP_ENV=local
     ports: 
       - "8080:8080"
