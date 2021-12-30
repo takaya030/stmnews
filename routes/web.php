@@ -29,3 +29,4 @@ $router->get('/testrss',  'GetRssAction' );
 // Test Delete Entities
 $router->get('/delent',  'RssController@getDelent' );
 //$router->get('/umadelent',  'RssController@getUmadelent' );
+$router->get('/testdelent',  'DelEntAction' );
