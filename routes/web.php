@@ -23,8 +23,9 @@ $router->get('/timeline',  'TwitterController@getTimeline' );
 
 // Test RSS
 $router->get('/rss',  'RssController@getRss' );
-$router->get('/umarss',  'RssController@getUmarss' );
+//$router->get('/umarss',  'RssController@getUmarss' );
+$router->get('/testrss',  'GetRssAction' );
 
 // Test Delete Entities
 $router->get('/delent',  'RssController@getDelent' );
-$router->get('/umadelent',  'RssController@getUmadelent' );
+//$router->get('/umadelent',  'RssController@getUmadelent' );
