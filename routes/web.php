@@ -19,12 +19,12 @@ $router->get('/', function () use ($router) {
 });
 
 // Test Timeline
-$router->get('/timeline',  'TwitterController@getTimeline' );
+//$router->get('/timeline',  'TwitterController@getTimeline' );
 
 // Test RSS
-$router->get('/rss',  'RssController@getRss' );
-$router->get('/testrss',  'GetRssAction' );
+$router->get('/oldrss',  'RssController@getRss' );
+$router->get('/rss',  'GetRssAction' );
 
 // Test Delete Entities
-$router->get('/delent',  'RssController@getDelent' );
-$router->get('/testdelent',  'DelEntAction' );
+$router->get('/olddelent',  'RssController@getDelent' );
+$router->get('/delent',  'DelEntAction' );
