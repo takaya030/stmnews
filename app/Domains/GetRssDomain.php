@@ -57,6 +57,8 @@ class GetRssDomain
 
 						$datastore->insertNewsItem( $news );
 
+						app('log')->info('tweet url: ' . $news->getUrl());
+
 						$last_timestamp = $news->getTimestamp();
 						$tweets_cnt++;
 						sleep(2);
