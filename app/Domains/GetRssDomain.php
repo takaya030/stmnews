@@ -17,7 +17,7 @@ class GetRssDomain
      */
     public function get(int $limit = 1)
     {
-		$feed = new \SimplePie();
+		$feed = new \SimplePie\SimplePie();
 		$feed->set_feed_url( config('accounts.rss.url') );
 		$feed->enable_cache(false); //キャッシュ機能はオフで使う
 		$success = $feed->init();

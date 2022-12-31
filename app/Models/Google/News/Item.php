@@ -12,9 +12,9 @@ class Item
 	protected	$timestamp;
 
 	/**
-	 * @param \SimplePie_Item $item
+	 * @param \SimplePie\Item $item
 	 */
-	public function __construct( \SimplePie_Item $item )
+	public function __construct( \SimplePie\Item $item )
 	{
 		$this->title	= $item->get_title();	// news title
 		$this->url		= $item->get_link();	// news url
