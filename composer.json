@@ -11,12 +11,12 @@
         }
     ],
     "require": {
-        "php": "^7.3|^8.0",
+        "php": "^8.0.2",
         "google/cloud-datastore": "^1.13",
         "guzzlehttp/guzzle": "^7.4",
-        "laravel/lumen-framework": "^8.0",
+        "laravel/lumen-framework": "^9.0",
         "league/oauth1-client": "^1.10",
-        "simplepie/simplepie": "^1.5"
+        "simplepie/simplepie": "^1.7"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
