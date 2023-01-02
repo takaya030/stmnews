@@ -4,32 +4,26 @@ declare(strict_types=1);
 namespace App\Http\Actions;
 
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Http\Controllers\Controller;
 
 use App\Domains\DelEntDomain as Domain;
-
 use App\Http\Responders\DelEntJsonResponder as Responder;
 
 class DelEntAction extends Controller
 {
     protected $Domain;
-    protected $Responder;
 
-    public function __construct(Domain $Domain, Responder $Responder)
+    public function __construct( Domain $Domain )
     {
         $this->Domain     = $Domain;
-        $this->Responder  = $Responder;
     }
 
     /**
      * @param Request $request
-     * @return JsonResponse
+     * @return DelEntJsonResponder
      */
-    public function __invoke(Request $request): JsonResponse
+    public function __invoke(Request $request)
     {
-        return $this->Responder->response(
-            $this->Domain->get()
-        );
+        return new Responder( $this->Domain->get() );
     }
 }

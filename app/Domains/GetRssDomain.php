@@ -72,6 +72,8 @@ class GetRssDomain
 
 			}
 
+			app('log')->info('tweet cnt: ' . $tweets_cnt . ', last_timestamp: ' . $last_timestamp);
+
 			return [
 				'tweets_cnt' => $tweets_cnt,
 				'last_timestamp' => $last_timestamp,

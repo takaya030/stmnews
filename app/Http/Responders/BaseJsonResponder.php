@@ -3,10 +3,12 @@ declare(strict_types=1);
 
 namespace App\Http\Responders;
 
+use Google\Cloud\Core\Exception\NotFoundException;
 use Illuminate\Http\Response;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Contracts\Support\Responsable;
 
-class BaseJsonResponder
+abstract class BaseJsonResponder implements Responsable
 {
     /**
      * @param mixed $data
@@ -27,5 +29,18 @@ class BaseJsonResponder
         }
 
         return response()->json($data);
+    }
+
+
+    abstract protected function getData(): mixed;
+
+    protected function getStatus(): int
+    {
+        return !empty($this->getData()) ?  Response::HTTP_OK : Response::HTTP_NOT_FOUND;
+    }
+
+    public function toResponse($request): JsonResponse
+    {
+        return new JsonResponse( $this->getData(), $this->getStatus() );
     }
 }
