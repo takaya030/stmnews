@@ -22,7 +22,7 @@ $router->get('/', function () use ($router) {
 //$router->get('/timeline',  'TwitterController@getTimeline' );
 
 // Test RSS
-$router->get('/rss',  'GetRssAction' );
+$router->get('/rss',  App\Http\Actions\GetRssAction::class );
 
 // Test Delete Entities
-$router->get('/delent',  'DelEntAction' );
+$router->get('/delent',  App\Http\Actions\DelEntAction::class );

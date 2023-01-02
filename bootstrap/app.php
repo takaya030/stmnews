@@ -132,7 +132,8 @@ $app->configure('accounts');
 */
 
 $app->router->group([
-    'namespace' => 'App\Http\Controllers',
+    //'namespace' => 'App\Http\Controllers',
+    'namespace' => '',
 ], function ($router) {
     require __DIR__.'/../routes/web.php';
 });
