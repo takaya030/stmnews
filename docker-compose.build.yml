@@ -4,8 +4,8 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
-      target: devapp
-    image: "takaya030/${GOOGLE_PROJECT_ID}/stmnews"
+      target: prdapp
+    image: "gcr.io/${GOOGLE_PROJECT_ID}/stmnews"
     environment:
       - APP_ENV=local
     ports: 
