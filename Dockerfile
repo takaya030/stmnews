@@ -19,4 +19,5 @@ RUN chmod 777 -R /var/www/storage/ && \
 # development
 FROM prdapp as devapp
 RUN pecl install xdebug && docker-php-ext-enable xdebug
-RUN groupadd -g 1000 vagrant && useradd -u 1000 -g vagrant vagrant
+COPY ./xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
+RUN groupadd -g 1000 vagrant && useradd -u 1000 -g vagrant -m vagrant
