@@ -1,6 +1,7 @@
 .env
 .git
-strage/framework/sessions/*
-strage/framework/views/*
-strage/logs/*
-vendor/
+strage/framework/cache/**
+strage/framework/sessions/**
+strage/framework/views/**
+strage/logs/**
+vendor
