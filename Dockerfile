@@ -1,7 +1,7 @@
 # composer 用
 FROM composer:2 as build
 WORKDIR /app
-COPY composer.json composer.lock /app
+COPY composer.json composer.lock /app/
 RUN composer install --no-dev
 
 # Laravel の実行環境用のコンテナ
