@@ -6,7 +6,7 @@ use Throwable;
 
 class LeagueOAuthClient
 {
-	protected $servive;
+	protected $service;
 	protected $tokenCredentials;
 	protected $client;
 	protected $base_url = 'https://api.twitter.com/1.1/';
