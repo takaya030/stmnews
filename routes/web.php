@@ -21,6 +21,9 @@ $router->get('/', function () use ($router) {
 // Test Timeline
 //$router->get('/timeline',  'TwitterController@getTimeline' );
 
+// Test Login
+$router->get('/login',  'App\Http\Controllers\TwitterController@getLogin' );
+
 // Test RSS
 $router->get('/rss',  App\Http\Actions\GetRssAction::class );
 
