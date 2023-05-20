@@ -5,8 +5,11 @@ COPY composer.json composer.lock /app/
 RUN composer install --no-dev
 
 # Laravel の実行環境用のコンテナ
-FROM php:8.1-apache as prdapp
-#RUN docker-php-ext-install pdo pdo_mysql
+# development
+FROM php:8.1-apache as devapp
+RUN groupadd -g 1000 vagrant && useradd -u 1000 -g vagrant -m vagrant
+RUN pecl install xdebug && docker-php-ext-enable xdebug
+COPY ./xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 
 EXPOSE 8080
 COPY --from=build /app /var/www/
@@ -17,8 +20,7 @@ RUN chmod 777 -R /var/www/storage/ && \
     chown -R www-data:www-data /var/www/ && \
     a2enmod rewrite
 
-# development
-FROM prdapp as devapp
-RUN pecl install xdebug && docker-php-ext-enable xdebug
-COPY ./xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
-RUN groupadd -g 1000 vagrant && useradd -u 1000 -g vagrant -m vagrant
+# prdapp
+FROM devapp as prdapp
+RUN rm -v /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    /usr/local/etc/php/conf.d/xdebug.ini
