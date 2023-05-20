@@ -9,15 +9,7 @@
 	"forwardPorts": [                   // xdebug.iniに書いたport番号と同じにする
 		9003
 	],
-	"settings": {},
-	"extensions": [
-		// "mikestead.dotenv",
-		// "amiralizadeh9480.laravel-extra-intellisense",
-		// "ryannaddy.laravel-artisan",
-		// "onecentlin.laravel5-snippets",
-		// "onecentlin.laravel-blade"
-	],
-	"remoteUser": "vagrant",
+	"remoteUser": "vagrant"
 	//"postCreateCommand": "chown -R 1000:1000 /var/www"
 	// "forwardPorts": [],
 	// "runServices": [],
