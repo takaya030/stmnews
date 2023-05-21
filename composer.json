@@ -16,6 +16,7 @@
         "guzzlehttp/guzzle": "^7.4",
         "laravel/lumen-framework": "^9.0",
         "league/oauth1-client": "^1.10",
+        "league/oauth2-client": "^2.7",
         "simplepie/simplepie": "^1.7"
     },
     "require-dev": {
