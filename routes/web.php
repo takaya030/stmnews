@@ -23,6 +23,7 @@ $router->get('/', function () use ($router) {
 
 // Test Login
 $router->get('/login',  'App\Http\Controllers\TwitterController@getLogin' );
+$router->get('/loginv2',  'App\Http\Controllers\TwitterController@getLoginv2' );
 
 // Test RSS
 $router->get('/rss',  App\Http\Actions\GetRssAction::class );
