@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: ./Dockerfile
       target: prdapp
-    image: "us-west1-docker.pkg.dev/${GOOGLE_PROJECT_ID}/my-repo/stmnews"
+    image: "us-west2-docker.pkg.dev/${GOOGLE_PROJECT_ID}/uw2-repo/stmnews"
     environment:
       - APP_ENV=local
     ports: 
