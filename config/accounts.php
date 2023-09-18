@@ -9,6 +9,13 @@ return [
 	*/
 
 	/**
+	 * Slack
+	 */
+	'slack' => [
+		'url'		=> env('SLACK_URL'),
+	],
+
+	/**
 	 * Twitter
 	 */
 	'twitter' => [
