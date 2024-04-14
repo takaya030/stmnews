@@ -30,8 +30,9 @@ class GetRssToSlackAction extends Controller
 
 		$limit = (int)$request->input('limit');
         $rss_url = config('accounts.rss.url');
+        $slack_url = config('accounts.slack.url');
         $datastore_kind = config('accounts.google.datastore_kind');
 
-        return new Responder( $this->Domain->get($rss_url, $datastore_kind, $limit) );
+        return new Responder( $this->Domain->get($rss_url, $slack_url, $datastore_kind, $limit) );
     }
 }

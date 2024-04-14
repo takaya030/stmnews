@@ -15,7 +15,7 @@ class GetRssToSlackDomain
      * @param int $limit
      * @return array
      */
-    public function get(string $rss_url, string $datastore_kind, int $limit = 1)
+    public function get(string $rss_url, string $slack_url, string $datastore_kind, int $limit = 1)
     {
 		$feed = new \SimplePie\SimplePie();
 		$feed->set_feed_url( $rss_url );
@@ -47,7 +47,7 @@ class GetRssToSlackDomain
 
 				$url_list = $this->makeStoredUrlList( $datastore );
 
-				$slackpost = new SlackPost();
+				$slackpost = new SlackPost($slack_url);
 
 				foreach( $data as $news )
 				{
