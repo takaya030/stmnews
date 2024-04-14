@@ -30,8 +30,9 @@ class GetGameRssToSlackAction extends Controller
 
 		$limit = (int)$request->input('limit');
         $rss_url = config('accounts.game_rss.url');
+        $slack_url = config('accounts.slack.game_url');
         $datastore_kind = config('accounts.google.game_datastore_kind');
 
-        return new Responder( $this->Domain->get($rss_url, $datastore_kind, $limit) );
+        return new Responder( $this->Domain->get($rss_url, $slack_url, $datastore_kind, $limit) );
     }
 }
