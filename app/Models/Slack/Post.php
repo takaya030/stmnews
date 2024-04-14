@@ -8,10 +8,12 @@ use Throwable;
 class Post
 {
 	protected $client;
+	protected $url;
 
-	public function __construct()
+	public function __construct(string $url)
 	{
 		$this->client = new \GuzzleHttp\Client();
+		$this->url = $url;
 	}
 
 	public function postNewsItem( NewsItem $news )
@@ -22,7 +24,7 @@ class Post
 	public function postText( string $text )
 	{
         $method = 'POST';
-        $url = env("SLACK_URL");
+        $url = $this->url;
         $options = [
             'json' => ['text' => $text],
         ];
