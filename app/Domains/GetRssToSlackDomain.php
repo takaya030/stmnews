@@ -15,10 +15,10 @@ class GetRssToSlackDomain
      * @param int $limit
      * @return array
      */
-    public function get(int $limit = 1)
+    public function get(string $rss_url, string $datastore_kind, int $limit = 1)
     {
 		$feed = new \SimplePie\SimplePie();
-		$feed->set_feed_url( config('accounts.rss.url') );
+		$feed->set_feed_url( $rss_url );
 		$feed->enable_cache(false); //キャッシュ機能はオフで使う
 		$success = $feed->init();
 		$feed->handle_content_type();
@@ -43,7 +43,7 @@ class GetRssToSlackDomain
 				$dsc = new DatastoreClient([
 					'keyFilePath' => storage_path( config('accounts.google.key_file') )
 				]);
-				$datastore = new Datastore( $dsc, config('accounts.google.datastore_kind') );
+				$datastore = new Datastore( $dsc, $datastore_kind );
 
 				$url_list = $this->makeStoredUrlList( $datastore );
 
