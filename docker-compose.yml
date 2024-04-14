@@ -6,8 +6,8 @@ services:
       dockerfile: ./Dockerfile
       target: devapp
     image: "takaya030/${GOOGLE_PROJECT_ID}/stmnews"
-    extra_hosts:
-      - "host.docker.internal:10.0.2.2"
+    #extra_hosts:
+    #  - "host.docker.internal:10.0.2.2"
     environment:
       - APP_ENV=local
     ports: 
