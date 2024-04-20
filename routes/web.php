@@ -31,3 +31,4 @@ $router->get('/gamerss',  App\Http\Actions\GetGameRssToSlackAction::class );
 
 // Test Delete Entities
 $router->get('/delent',  App\Http\Actions\DelEntAction::class );
+$router->get('/gamedelent',  App\Http\Actions\GameDelEntAction::class );
