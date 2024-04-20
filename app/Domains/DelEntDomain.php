@@ -12,12 +12,12 @@ class DelEntDomain
     /**
      * @return array
      */
-    public function get()
+    public function get(string $datastore_kind)
     {
 		$dsc = new DatastoreClient([
 			'keyFilePath' => storage_path( config('accounts.google.key_file') )
 		]);
-		$datastore = new Datastore( $dsc, config('accounts.google.datastore_kind') );
+		$datastore = new Datastore( $dsc, $datastore_kind );
 
 		$oldest_timestamp = Carbon::now()->subHours(36)->timestamp;
 		$entities = $datastore->getBeforeAll( $oldest_timestamp );
