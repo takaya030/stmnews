@@ -24,6 +24,7 @@ class DelEntAction extends Controller
      */
     public function __invoke(Request $request)
     {
-        return new Responder( $this->Domain->get() );
+        $datastore_kind = config('accounts.google.datastore_kind');
+        return new Responder( $this->Domain->get($datastore_kind) );
     }
 }
