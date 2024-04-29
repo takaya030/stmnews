@@ -6,7 +6,7 @@ RUN composer install --no-dev
 
 # Laravel の実行環境用のコンテナ
 # development
-FROM php:8.1-apache as devapp
+FROM php:8.2-apache as devapp
 RUN groupadd -g 1000 vagrant && useradd -u 1000 -g vagrant -m vagrant
 RUN pecl install xdebug && docker-php-ext-enable xdebug
 COPY ./xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
