@@ -4,12 +4,6 @@
     "keywords": ["framework", "laravel", "lumen"],
     "license": "MIT",
     "type": "project",
-    "repositories": [
-        {
-          "type": "vcs",
-          "url": "https://github.com/takaya030/oauth-lumen"
-        }
-    ],
     "require": {
         "php": "^8.0.2",
         "google/cloud-datastore": "^1.13",
