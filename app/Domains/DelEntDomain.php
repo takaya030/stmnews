@@ -14,9 +14,7 @@ class DelEntDomain
      */
     public function get(string $datastore_kind)
     {
-		$dsc = new DatastoreClient([
-			'keyFilePath' => storage_path( config('accounts.google.key_file') )
-		]);
+		$dsc = new DatastoreClient();
 		$datastore = new Datastore( $dsc, $datastore_kind );
 
 		$oldest_timestamp = Carbon::now()->subHours(36)->timestamp;
