@@ -40,9 +40,7 @@ class GetRssDomain
 			$last_timestamp = 0;
 			if( isset( $data[0] ) )
 			{
-				$dsc = new DatastoreClient([
-					'keyFilePath' => storage_path( config('accounts.google.key_file') )
-				]);
+				$dsc = new DatastoreClient();
 				$datastore = new Datastore( $dsc, config('accounts.google.datastore_kind') );
 
 				$url_list = $this->makeStoredUrlList( $datastore );
