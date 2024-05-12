@@ -31,15 +31,8 @@ return [
 	 * Google
 	 */
 	'google' => [
-		'client_id'		=> env('GOOGLE_CLIENT_ID'),
-		'client_secret'	=> env('GOOGLE_CLIENT_SECRET'),
-		'access_token'	=> env('GOOGLE_ACCESS_TOKEN'),
-		'refresh_token'	=> env('GOOGLE_REFRESH_TOKEN'),
-
-		'project_id'	=> env('GOOGLE_PROJECT_ID'),
 		'datastore_kind'	=> env('DATASTORE_KIND'),
 		'game_datastore_kind'	=> env('GAME_DATASTORE_KIND'),
-		//'key_file'		=> env('GOOGLE_KEY_FILE'),
 	],
 
 	/**
