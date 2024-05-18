@@ -4,7 +4,6 @@ Homestead.json
 Homestead.yaml
 deploy.sh
 .env
-.env.prd
 .phpunit.result.cache
 *~
 *.swp
