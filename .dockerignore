@@ -1,5 +1,6 @@
 .env
 .git
+.github
 strage/app/*.json
 strage/framework/cache/**
 strage/framework/sessions/**
