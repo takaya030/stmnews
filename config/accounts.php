@@ -14,16 +14,13 @@ return [
 	'slack' => [
 		'url'		=> env('SLACK_URL'),
 		'game_url'	=> env('GAME_SLACK_URL'),
+		'blog_url'	=> env('BLOG_SLACK_URL'),
 	],
 
 	/**
 	 * Twitter
 	 */
 	'twitter' => [
-		//'client_id'		=> env('TWITTER_CLIENT_ID'),
-		//'client_secret'	=> env('TWITTER_CLIENT_SECRET'),
-		//'access_token'	=> env('TWITTER_ACCESS_TOKEN'),
-		//'access_token_secret'	=> env('TWITTER_ACCESS_TOKEN_SECRET'),
 		'user_id'		=> env('TWITTER_USER_ID'),
 	],
 
@@ -33,6 +30,7 @@ return [
 	'google' => [
 		'datastore_kind'	=> env('DATASTORE_KIND'),
 		'game_datastore_kind'	=> env('GAME_DATASTORE_KIND'),
+		'aws_datastore_kind'	=> env('AWS_DATASTORE_KIND'),
 	],
 
 	/**
@@ -41,6 +39,7 @@ return [
 	'rss' => [
 		'url'	=> env('RSS_URL'),
 		'game_url'	=> env('GAME_RSS_URL'),
+		'aws_url'	=> env('AWS_RSS_URL'),
 	],
 
 ];
