@@ -24,7 +24,11 @@ class GetDelEntAction extends Controller
      */
     public function __invoke(Request $request)
     {
-        $datastore_kind = config('accounts.google.datastore_kind');
+        $this->validate($request, [
+            'datastore_kind' => 'required|string',
+        ]);
+
+        $datastore_kind = $request->input('datastore_kind');
         return new Responder( $this->Domain->get($datastore_kind) );
     }
 }
