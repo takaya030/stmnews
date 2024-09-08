@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Domains\DelEntDomain as Domain;
 use App\Http\Responders\DelEntJsonResponder as Responder;
 
-class DelEntAction extends Controller
+class GetDelEntAction extends Controller
 {
     protected $Domain;
 
