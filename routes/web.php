@@ -26,9 +26,6 @@ $router->get('/login',  'App\Http\Controllers\TwitterController@getLogin' );
 $router->get('/loginv2',  'App\Http\Controllers\TwitterController@getLoginv2' );
 
 // Post to Slack from RSS
-$router->get('/rss',  App\Http\Actions\GetRssToSlackAction::class );
-$router->get('/gamerss',  App\Http\Actions\GetGameRssToSlackAction::class );
-$router->get('/awsrss',  App\Http\Actions\GetAwsRssToSlackAction::class );
 $router->post('/rss',  App\Http\Actions\PostRssToSlackAction::class );
 
 // Test Delete Entities
