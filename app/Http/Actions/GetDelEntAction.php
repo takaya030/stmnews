@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Domains\DelEntDomain as Domain;
 use App\Http\Responders\DelEntJsonResponder as Responder;
 
-class AwsDelEntAction extends Controller
+class GetDelEntAction extends Controller
 {
     protected $Domain;
 
@@ -24,7 +24,11 @@ class AwsDelEntAction extends Controller
      */
     public function __invoke(Request $request)
     {
-        $datastore_kind = config('accounts.google.aws_datastore_kind');
+        $this->validate($request, [
+            'datastore_kind' => 'required|string',
+        ]);
+
+        $datastore_kind = $request->input('datastore_kind');
         return new Responder( $this->Domain->get($datastore_kind) );
     }
 }

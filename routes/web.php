@@ -28,7 +28,5 @@ $router->get('/loginv2',  'App\Http\Controllers\TwitterController@getLoginv2' );
 // Post to Slack from RSS
 $router->post('/rss',  App\Http\Actions\PostRssToSlackAction::class );
 
-// Test Delete Entities
-$router->get('/delent',  App\Http\Actions\DelEntAction::class );
-$router->get('/gamedelent',  App\Http\Actions\GameDelEntAction::class );
-$router->get('/awsdelent',  App\Http\Actions\AwsDelEntAction::class );
+// Delete Datastore Entities
+$router->get('/delent',  App\Http\Actions\GetDelEntAction::class );
