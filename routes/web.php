@@ -25,7 +25,7 @@ $router->get('/', function () use ($router) {
 $router->get('/login',  'App\Http\Controllers\TwitterController@getLogin' );
 $router->get('/loginv2',  'App\Http\Controllers\TwitterController@getLoginv2' );
 
-// Test RSS
+// Post to Slack from RSS
 $router->get('/rss',  App\Http\Actions\GetRssToSlackAction::class );
 $router->get('/gamerss',  App\Http\Actions\GetGameRssToSlackAction::class );
 $router->get('/awsrss',  App\Http\Actions\GetAwsRssToSlackAction::class );
