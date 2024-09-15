@@ -12,13 +12,12 @@ RUN pecl install xdebug && docker-php-ext-enable xdebug
 COPY ./xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 
 EXPOSE 8080
-COPY --from=build /app /var/www/
-COPY . /var/www
+COPY --from=build --chown=www-data:www-data /app /var/www/
+COPY --chown=www-data:www-data . /var/www
 COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
 RUN chmod 777 -R /var/www/storage/ && \
     echo "Listen 8080" >> /etc/apache2/ports.conf && \
     echo "ServerName 127.0.0.1" >> /etc/apache2/apache2.conf && \
-    chown -R www-data:www-data /var/www/ && \
     a2enmod rewrite
 
 # prdapp
