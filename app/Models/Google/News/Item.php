@@ -22,12 +22,12 @@ class Item
 		$this->timestamp	= Carbon::createFromFormat( 'Y-m-d H:i:s T', $item->get_date('Y-m-d H:i:s T') )->timestamp;	// posting timestamp of news
 	}
 
-	public function getTitle()
+	public function getTitle(): string
 	{
 		return $this->title;
 	}
 
-	public function getUrl()
+	public function getUrl(): string
 	{
 		return $this->url;
 	}
