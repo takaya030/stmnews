@@ -5,6 +5,7 @@ namespace App\Models\Google;
 use Google\Cloud\Datastore\Key;
 use Google\Cloud\Datastore\DatastoreClient;
 use App\Models\Google\News\Item as NewsItem;
+use App\Models\Slack\Payload as Payload;
 
 class Datastore
 {
@@ -66,6 +67,20 @@ class Datastore
 			'user_id'	=> $user_id,
 			'timestamp' => $news->getTimestamp(),
 			'url' => $news->getUrl(),
+		]);
+	}
+
+	public function insertPayload( Payload $payload, $user_id = null )
+	{
+		if( is_null($user_id) )
+		{
+			$user_id = config('accounts.twitter.user_id');
+		}
+
+		return $this->insert([
+			'user_id'	=> $user_id,
+			'timestamp' => $payload->getTimestamp(),
+			'url' => $payload->getUrl(),
 		]);
 	}
 
