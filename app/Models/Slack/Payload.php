@@ -24,7 +24,7 @@ class Payload
 
     public function toArray(): array
     {
-        return json_decode(json_encode($this), true);
+		return get_object_vars($this);
     }
 
 	public function getTitle(): string
