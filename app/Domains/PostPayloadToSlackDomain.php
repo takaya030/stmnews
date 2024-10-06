@@ -30,7 +30,7 @@ class PostPayloadToSlackDomain {
             $slackpost->postPayload($payload);
             $datastore->insertPayload($payload);
 
-			app('log')->info('successed in posting: ' . json_encode($payload));
+			app('log')->info('successed in posting: ' . json_encode($payload->toArray()));
 
             return $payload->toArray();
         }
