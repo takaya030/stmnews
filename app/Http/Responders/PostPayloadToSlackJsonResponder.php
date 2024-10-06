@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Http\Responders;
 
-class PostPlayloadToSlackJsonResponder extends BaseJsonResponder
+class PostPayloadToSlackJsonResponder extends BaseJsonResponder
 {
     private $data;
 

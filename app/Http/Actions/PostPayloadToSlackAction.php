@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use App\Domains\PostPayloadToSlackDomain as Domain;
-use App\Http\Responders\PostPlayloadToSlackJsonResponder as Responder;
+use App\Http\Responders\PostPayloadToSlackJsonResponder as Responder;
 
 class PostPayloadToSlackAction extends Controller
 {
@@ -20,7 +20,7 @@ class PostPayloadToSlackAction extends Controller
 
     /**
      * @param Request $request
-     * @return GetRssJsonREsponder
+     * @return PostPayloadToSlackJsonResponder
      */
     public function __invoke(Request $request)
     {
@@ -32,9 +32,9 @@ class PostPayloadToSlackAction extends Controller
             'datastore_kind' => 'required|string',
         ]);
 
-        $news_url = $request->input('rss_url');
+        $news_url = $request->input('news_url');
         $title = $request->input('title');
-        $timestamp = $request->input('timestamp');
+        $timestamp = (int)$request->input('timestamp');
         $slack_url = $request->input('slack_url');
         $datastore_kind = $request->input('datastore_kind');
 
