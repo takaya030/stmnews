@@ -27,6 +27,11 @@ class Payload
 		return get_object_vars($this);
     }
 
+	public function toJson(): string|false
+	{
+		return json_encode($this->toArray());
+	}
+
 	public function getTitle(): string
 	{
 		return $this->title;
