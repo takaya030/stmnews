@@ -18,7 +18,7 @@ class TaskFactory
 		$this->serviceAccountEmail = env("SERVICE_ACCOUNT_EMAIL");
 	}
 
-	public function createTask(Payload $payload, string $postUrl): Task
+	public function createTask(Payload $payload, string $postUrl, string $slackUrl, string $datastoreKind): Task
 	{
 		// Add your service account email to construct the OIDC token
 		// in order to add an authentication header to the request.
@@ -36,7 +36,8 @@ class TaskFactory
 
 		$httpRequest->setHeaders(["Content-Type" => "application/json"]);
 		// Setting a body value is only compatible with HTTP POST and PUT requests.
-   		$httpRequest->setBody($payload->toJson());
+		$postBody = json_encode(array_merge($payload->toArray(), ['slack_url' => $slackUrl, 'datastore_kind' => $datastoreKind]));
+   		$httpRequest->setBody($postBody);
 
 		$task = new Task();
 		$task->setHttpRequest($httpRequest);
