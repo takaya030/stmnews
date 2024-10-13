@@ -18,7 +18,7 @@ class TaskFactory
 		$this->serviceAccountEmail = env("SERVICE_ACCOUNT_EMAIL");
 	}
 
-	public function createTask(Payload $payload): Task
+	public function createTask(Payload $payload, string $postUrl): Task
 	{
 		// Add your service account email to construct the OIDC token
 		// in order to add an authentication header to the request.
@@ -28,7 +28,7 @@ class TaskFactory
 		// Create an Http Request Object.
 		$httpRequest = new HttpRequest();
 		// The full url path that the task request will be sent to.
-		$httpRequest->setUrl($payload->getUrl());
+		$httpRequest->setUrl($postUrl);
 		// POST is the default HTTP method, but any HTTP method can be used.
 		$httpRequest->setHttpMethod(HttpMethod::POST);
 		//The oidcToken used to assert identity.
