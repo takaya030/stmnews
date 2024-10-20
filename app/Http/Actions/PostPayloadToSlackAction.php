@@ -6,7 +6,7 @@ namespace App\Http\Actions;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-use App\Domains\PostPayloadToSlackDomain as Domain;
+use App\Http\Domains\PostPayloadToSlackDomain as Domain;
 use App\Http\Responders\PostPayloadToSlackJsonResponder as Responder;
 
 class PostPayloadToSlackAction extends Controller

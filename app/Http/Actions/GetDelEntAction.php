@@ -6,7 +6,7 @@ namespace App\Http\Actions;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-use App\Domains\DelEntDomain as Domain;
+use App\Http\Domains\DelEntDomain as Domain;
 use App\Http\Responders\DelEntJsonResponder as Responder;
 
 class GetDelEntAction extends Controller
