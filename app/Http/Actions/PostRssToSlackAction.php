@@ -6,7 +6,7 @@ namespace App\Http\Actions;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-use App\Domains\GetRssToSlackDomain as Domain;
+use App\Http\Domains\GetRssToSlackDomain as Domain;
 use App\Http\Responders\GetRssToSlackJsonResponder as Responder;
 
 class PostRssToSlackAction extends Controller
