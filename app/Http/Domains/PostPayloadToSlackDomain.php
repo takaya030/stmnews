@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Domains;
+namespace App\Http\Domains;
 
 use App\Models\Google\Datastore;
 use App\Models\Slack\Payload as Payload;

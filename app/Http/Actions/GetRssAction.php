@@ -6,7 +6,7 @@ namespace App\Http\Actions;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-use App\Domains\GetRssDomain as Domain;
+use App\Http\Domains\GetRssDomain as Domain;
 use App\Http\Responders\GetRssJsonResponder as Responder;
 
 class GetRssAction extends Controller
