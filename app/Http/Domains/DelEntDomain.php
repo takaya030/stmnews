@@ -15,7 +15,8 @@ class DelEntDomain
     public function get(string $datastore_kind)
     {
 		$dsc = new DatastoreClient();
-		$datastore = new Datastore( $dsc, $datastore_kind );
+		$datastore = new Datastore( $dsc );
+		$datastore->setKind($datastore_kind);
 
 		$oldest_timestamp = Carbon::now()->subHours(36)->timestamp;
 		$entities = $datastore->getBeforeAll( $oldest_timestamp );

@@ -41,7 +41,8 @@ class GetRssToSlackDomain
 			if( isset( $data[0] ) )
 			{
 				$dsc = new DatastoreClient();
-				$datastore = new Datastore( $dsc, $datastore_kind );
+				$datastore = new Datastore( $dsc );
+				$datastore->setKind($datastore_kind);
 
 				$url_list = $this->makeStoredUrlList( $datastore );
 

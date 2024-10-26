@@ -23,7 +23,8 @@ class PostPayloadToSlackDomain {
     {
         try {
             $dsc = new DatastoreClient();
-            $datastore = new Datastore( $dsc, $datastore_kind );
+            $datastore = new Datastore( $dsc );
+            $datastore->setKind($datastore_kind);
             $slackpost = new SlackPost($slack_url);
 
             $payload = new Payload($title, $news_url, $timestamp);
