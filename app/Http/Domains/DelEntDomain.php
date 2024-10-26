@@ -24,6 +24,7 @@ class DelEntDomain
 		$this->repository->setKind($datastore_kind);
 
 		$oldest_timestamp = Carbon::now()->subHours(36)->timestamp;
+
 		return $this->repository->deleteAllThatBefore($oldest_timestamp);
     }
 }
