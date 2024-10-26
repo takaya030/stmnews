@@ -14,12 +14,17 @@ class Datastore
 	protected $entities = [];
 	protected $is_cached_entities = false;
 
-	public function __construct( DatastoreClient $dsc, string $knd )
+	public function __construct(DatastoreClient $dsc)
 	{
 		$this->dsclient = $dsc;
-		$this->kind = $knd;
+		//$this->kind = $knd;
 		$this->entities = [];
 		$this->is_cached_entities = false;
+	}
+
+	public function setKind(string $datastore_kind)
+	{
+		$this->kind = $datastore_kind;
 	}
 
 	public function getAll()

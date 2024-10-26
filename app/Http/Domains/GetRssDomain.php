@@ -41,7 +41,8 @@ class GetRssDomain
 			if( isset( $data[0] ) )
 			{
 				$dsc = new DatastoreClient();
-				$datastore = new Datastore( $dsc, config('accounts.google.datastore_kind') );
+				$datastore = new Datastore( $dsc );
+				$datastore->setKind(config('accounts.google.datastore_kind'));
 
 				$url_list = $this->makeStoredUrlList( $datastore );
 

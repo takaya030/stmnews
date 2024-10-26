@@ -112,6 +112,8 @@ $app->middleware([
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 
+ $app->register(App\Providers\RepositoryProvider::class);
+
 /*
 |--------------------------------------------------------------------------
 | Load Custom Config Files
