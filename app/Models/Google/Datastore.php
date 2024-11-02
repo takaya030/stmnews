@@ -7,6 +7,8 @@ use Google\Cloud\Datastore\DatastoreClient;
 use App\Models\Google\News\Item as NewsItem;
 use App\Models\Slack\Payload as Payload;
 
+use App\Domain\Entity\News;		// workaround
+
 class Datastore
 {
 	protected $dsclient = null;
@@ -62,6 +64,21 @@ class Datastore
 	}
 
 	public function insertNewsitem( NewsItem $news, $user_id = null )
+	{
+		if( is_null($user_id) )
+		{
+			$user_id = config('accounts.twitter.user_id');
+		}
+
+		return $this->insert([
+			'user_id'	=> $user_id,
+			'timestamp' => $news->getTimestamp(),
+			'url' => $news->getUrl(),
+		]);
+	}
+
+	// workaround
+	public function insertNews( News $news, $user_id = null )
 	{
 		if( is_null($user_id) )
 		{
