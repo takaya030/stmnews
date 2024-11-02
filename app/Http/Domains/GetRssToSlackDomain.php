@@ -9,8 +9,17 @@ use App\Models\Slack\Post as SlackPost;
 use \Carbon\Carbon;
 use Google\Cloud\Datastore\DatastoreClient;
 
+use App\Domain\Repository\IRepositoryNews as Repository;
+
 class GetRssToSlackDomain
 {
+    protected $repository;
+
+    public function __construct(Repository $repo)
+    {
+        $this->repository = $repo;
+    }
+
     /**
      * @param int $limit
      * @return array
