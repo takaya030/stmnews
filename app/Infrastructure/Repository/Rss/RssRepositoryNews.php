@@ -21,6 +21,10 @@ class RssRepositoryNews extends RssRepository implements IRepositoryNews
                 $data[] = new News( $item );
 			}
         }
+        else
+        {
+            app('log')->error($this->rss->error());
+        }
 
         return $data;
     }
