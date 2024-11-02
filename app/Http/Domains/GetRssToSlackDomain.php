@@ -9,26 +9,30 @@ use App\Models\Slack\Post as SlackPost;
 use \Carbon\Carbon;
 use Google\Cloud\Datastore\DatastoreClient;
 
+use App\Domain\Repository\IRepositoryNews as Repository;
+
 class GetRssToSlackDomain
 {
+    protected $repository;
+
+    public function __construct(Repository $repo)
+    {
+        $this->repository = $repo;
+    }
+
     /**
      * @param int $limit
      * @return array
      */
     public function get(string $rss_url, string $slack_url, string $datastore_kind, int $limit = 1)
     {
-		$feed = new \SimplePie\SimplePie();
-		$feed->set_feed_url( $rss_url );
-		$feed->enable_cache(false); //キャッシュ機能はオフで使う
-		$success = $feed->init();
-		$feed->handle_content_type();
+		$feed = $this->repository->fetch($rss_url);
 
-		if ($success)
+		if (!empty($feed))
 		{
 			$data = [];
 			$oldest_timestamp = Carbon::now()->subHours(36)->timestamp;
-			foreach ($feed->get_items() as $item) {
-				$news = new NewsItem( $item );
+			foreach ($feed as $news) {
 				if( $news->getTimestamp() > $oldest_timestamp )
 				{
 					array_unshift( $data, $news );
@@ -52,9 +56,9 @@ class GetRssToSlackDomain
 				{
 					if( !in_array( $news->getUrl(), $url_list, true ) )
 					{
-						$slackpost->postNewsItem( $news );
+						$slackpost->postText( $news->getTitle() . "\n" . $news->getUrl() );
 
-						$datastore->insertNewsItem( $news );
+						$datastore->insertNews( $news );
 
 						app('log')->info('post url: ' . $news->getUrl());
 
@@ -81,7 +85,7 @@ class GetRssToSlackDomain
 		else
 		{
 			return [
-				'error' => $feed->error(),
+				'error' => "cannot fetch rss feed: " . $rss_url,
 			];
 		}
     }
