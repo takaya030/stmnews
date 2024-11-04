@@ -6,12 +6,12 @@ use App\Domain\Repository\IRepositorySentNews;
 
 class DatastoreRepositorySentNews extends DatastoreRepository implements IRepositorySentNews
 {
-    public function setKind(string $kd)
+    public function setKind(string $kd): void
     {
         $this->datastore->setKind($kd);
     }
 
-    public function deleteAllThatBefore(int $oldest_timestamp)
+    public function deleteAllThatBefore(int $oldest_timestamp): array
     {
 		$entities = $this->datastore->getBeforeAll( $oldest_timestamp );
 
