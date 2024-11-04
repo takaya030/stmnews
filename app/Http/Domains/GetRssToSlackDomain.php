@@ -3,23 +3,22 @@ declare(strict_types=1);
 
 namespace App\Http\Domains;
 
-use App\Models\Google\Datastore;
-use App\Models\Google\News\Item as NewsItem;
-use App\Models\Slack\Post as SlackPost;
 use \Carbon\Carbon;
-use Google\Cloud\Datastore\DatastoreClient;
 
 use App\Domain\Repository\IRepositoryNews as RepositoryNews;
+use App\Domain\Repository\IRepositorySentNews as RepositorySentNews;
 use App\Domain\Repository\IRepositorySNS as RepositorySNS;
 
 class GetRssToSlackDomain
 {
     protected $repoNews;
+    protected $repoSentNews;
     protected $repoSNS;
 
-    public function __construct(RepositoryNews $repoNews, RepositorySNS $repoSNS)
+    public function __construct(RepositoryNews $repoNews, RepositorySentNews $repoSentNews, RepositorySNS $repoSNS)
     {
         $this->repoNews = $repoNews;
+        $this->repoSentNews = $repoSentNews;
         $this->repoSNS = $repoSNS;
     }
 
@@ -47,11 +46,9 @@ class GetRssToSlackDomain
 			$last_timestamp = 0;
 			if( isset( $data[0] ) )
 			{
-				$dsc = new DatastoreClient();
-				$datastore = new Datastore( $dsc );
-				$datastore->setKind($datastore_kind);
+				$this->repoSentNews->setKind($datastore_kind);
 
-				$url_list = $this->makeStoredUrlList( $datastore );
+				$url_list = $this->makeStoredUrlList();
 
 				$this->repoSNS->setUrl($slack_url);
 
@@ -61,7 +58,7 @@ class GetRssToSlackDomain
 					{
 						$this->repoSNS->postNews($news);
 
-						$datastore->insertNews( $news );
+						$this->repoSentNews->insertNews( $news );
 
 						app('log')->info('post url: ' . $news->getUrl());
 
@@ -93,14 +90,14 @@ class GetRssToSlackDomain
 		}
     }
 
-	private function makeStoredUrlList( Datastore $ds )
+	private function makeStoredUrlList()
 	{
 		$result = [];
-		$entities = $ds->getAll();
+		$entities = $this->repoSentNews->getAll();
 
-		foreach( $entities as $entity )
+		foreach( $entities as $sentnews )
 		{
-			$result[] = $entity['url'];
+			$result[] = $sentnews->getUrl();
 		}
 
 		return $result;

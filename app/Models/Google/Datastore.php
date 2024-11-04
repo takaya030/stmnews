@@ -7,8 +7,6 @@ use Google\Cloud\Datastore\DatastoreClient;
 use App\Models\Google\News\Item as NewsItem;
 use App\Models\Slack\Payload as Payload;
 
-use App\Domain\Entity\News;		// workaround
-
 class Datastore
 {
 	protected $dsclient = null;
@@ -24,12 +22,12 @@ class Datastore
 		$this->is_cached_entities = false;
 	}
 
-	public function setKind(string $datastore_kind)
+	public function setKind(string $datastore_kind): void
 	{
 		$this->kind = $datastore_kind;
 	}
 
-	public function getAll()
+	public function getAll(): array
 	{
 		if( !$this->is_cached_entities )
 		{
@@ -46,7 +44,7 @@ class Datastore
 		return $this->entities;
 	}
 
-	public function getBeforeAll( int $timestamp )
+	public function getBeforeAll( int $timestamp ): array
 	{
 		$query = $this->dsclient->gqlQuery('SELECT * FROM ' . $this->kind . ' WHERE timestamp < @tm', [
 			'bindings' => [
@@ -63,7 +61,7 @@ class Datastore
 		return $result;
 	}
 
-	public function insertNewsitem( NewsItem $news, $user_id = null )
+	public function insertNewsitem( NewsItem $news, $user_id = null ): string
 	{
 		if( is_null($user_id) )
 		{
@@ -77,22 +75,7 @@ class Datastore
 		]);
 	}
 
-	// workaround
-	public function insertNews( News $news, $user_id = null )
-	{
-		if( is_null($user_id) )
-		{
-			$user_id = config('accounts.twitter.user_id');
-		}
-
-		return $this->insert([
-			'user_id'	=> $user_id,
-			'timestamp' => $news->getTimestamp(),
-			'url' => $news->getUrl(),
-		]);
-	}
-
-	public function insertPayload( Payload $payload, $user_id = null )
+	public function insertPayload( Payload $payload, $user_id = null ): string
 	{
 		if( is_null($user_id) )
 		{
@@ -106,7 +89,7 @@ class Datastore
 		]);
 	}
 
-	public function insert( array $properties )
+	public function insert( array $properties ): string
 	{
 		$key = $this->dsclient->key( $this->kind, null, [ 'identifierType' => Key::TYPE_ID ] );
 		$entity = $this->dsclient->entity( $key, $properties );
