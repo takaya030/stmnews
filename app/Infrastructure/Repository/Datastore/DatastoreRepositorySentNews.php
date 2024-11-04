@@ -11,6 +11,11 @@ class DatastoreRepositorySentNews extends DatastoreRepository implements IReposi
         $this->datastore->setKind($kd);
     }
 
+	public function getAll(): array
+	{
+		return $this->datastore->getAll();
+	}
+
     public function deleteAllThatBefore(int $oldest_timestamp): array
     {
 		$entities = $this->datastore->getBeforeAll( $oldest_timestamp );
