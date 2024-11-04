@@ -3,6 +3,7 @@
 namespace App\Infrastructure\Repository\Datastore;
 
 use App\Domain\Repository\IRepositorySentNews;
+use App\Domain\Entity\SentNews;
 
 class DatastoreRepositorySentNews extends DatastoreRepository implements IRepositorySentNews
 {
@@ -13,7 +14,15 @@ class DatastoreRepositorySentNews extends DatastoreRepository implements IReposi
 
 	public function getAll(): array
 	{
-		return $this->datastore->getAll();
+		$entities = $this->datastore->getAll();
+
+		$data = [];
+		foreach( $entities as $entity )
+		{
+			$data[] = new SentNews($entity['user_id'], (int)$entity['timestamp'], $entity['url']);
+		}
+
+		return $data;
 	}
 
     public function deleteAllThatBefore(int $oldest_timestamp): array
