@@ -15,15 +15,6 @@ abstract class SlackRepository
     }
 
 	/**
-	 * @param string $url
-	 * @return void
-	 */
-    public function setUrl(string $url): void
-    {
-        $this->url = $url;
-    }
-
-	/**
 	 * @param string $text
 	 * @return string
 	 */
