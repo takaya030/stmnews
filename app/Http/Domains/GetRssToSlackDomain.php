@@ -9,15 +9,18 @@ use App\Models\Slack\Post as SlackPost;
 use \Carbon\Carbon;
 use Google\Cloud\Datastore\DatastoreClient;
 
-use App\Domain\Repository\IRepositoryNews as Repository;
+use App\Domain\Repository\IRepositoryNews as RepositoryNews;
+use App\Domain\Repository\IRepositorySNS as RepositorySNS;
 
 class GetRssToSlackDomain
 {
-    protected $repository;
+    protected $repoNews;
+    protected $repoSNS;
 
-    public function __construct(Repository $repo)
+    public function __construct(RepositoryNews $repoNews, RepositorySNS $repoSNS)
     {
-        $this->repository = $repo;
+        $this->repoNews = $repoNews;
+        $this->repoSNS = $repoSNS;
     }
 
     /**
@@ -26,7 +29,7 @@ class GetRssToSlackDomain
      */
     public function get(string $rss_url, string $slack_url, string $datastore_kind, int $limit = 1)
     {
-		$feed = $this->repository->fetch($rss_url);
+		$feed = $this->repoNews->fetch($rss_url);
 
 		if (!empty($feed))
 		{
@@ -50,13 +53,13 @@ class GetRssToSlackDomain
 
 				$url_list = $this->makeStoredUrlList( $datastore );
 
-				$slackpost = new SlackPost($slack_url);
+				$this->repoSNS->setUrl($slack_url);
 
 				foreach( $data as $news )
 				{
 					if( !in_array( $news->getUrl(), $url_list, true ) )
 					{
-						$slackpost->postText( $news->getTitle() . "\n" . $news->getUrl() );
+						$this->repoSNS->postNews($news);
 
 						$datastore->insertNews( $news );
 
