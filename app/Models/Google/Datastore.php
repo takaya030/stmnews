@@ -63,7 +63,7 @@ class Datastore
 		return $result;
 	}
 
-	public function insertNewsitem( NewsItem $news, $user_id = null )
+	public function insertNewsitem( NewsItem $news, $user_id = null ): string
 	{
 		if( is_null($user_id) )
 		{
@@ -78,7 +78,7 @@ class Datastore
 	}
 
 	// workaround
-	public function insertNews( News $news, $user_id = null )
+	public function insertNews( News $news, $user_id = null ): string
 	{
 		if( is_null($user_id) )
 		{
@@ -92,7 +92,7 @@ class Datastore
 		]);
 	}
 
-	public function insertPayload( Payload $payload, $user_id = null )
+	public function insertPayload( Payload $payload, $user_id = null ): string
 	{
 		if( is_null($user_id) )
 		{
@@ -106,7 +106,7 @@ class Datastore
 		]);
 	}
 
-	public function insert( array $properties )
+	public function insert( array $properties ): string
 	{
 		$key = $this->dsclient->key( $this->kind, null, [ 'identifierType' => Key::TYPE_ID ] );
 		$entity = $this->dsclient->entity( $key, $properties );
