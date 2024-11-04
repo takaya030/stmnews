@@ -3,6 +3,7 @@
 namespace App\Infrastructure\Repository\Datastore;
 
 use App\Domain\Repository\IRepositorySentNews;
+use App\Domain\Entity\News;
 use App\Domain\Entity\SentNews;
 
 class DatastoreRepositorySentNews extends DatastoreRepository implements IRepositorySentNews
@@ -23,6 +24,17 @@ class DatastoreRepositorySentNews extends DatastoreRepository implements IReposi
 		}
 
 		return $data;
+	}
+
+    public function insertNews(News $news): string
+	{
+		$user_id = config('accounts.twitter.user_id');
+
+		return $this->datastore->insert([
+			'user_id'	=> $user_id,
+			'timestamp' => $news->getTimestamp(),
+			'url' => $news->getUrl(),
+		]);
 	}
 
     public function deleteAllThatBefore(int $oldest_timestamp): array
