@@ -24,12 +24,12 @@ class Datastore
 		$this->is_cached_entities = false;
 	}
 
-	public function setKind(string $datastore_kind)
+	public function setKind(string $datastore_kind): void
 	{
 		$this->kind = $datastore_kind;
 	}
 
-	public function getAll()
+	public function getAll(): array
 	{
 		if( !$this->is_cached_entities )
 		{
@@ -46,7 +46,7 @@ class Datastore
 		return $this->entities;
 	}
 
-	public function getBeforeAll( int $timestamp )
+	public function getBeforeAll( int $timestamp ): array
 	{
 		$query = $this->dsclient->gqlQuery('SELECT * FROM ' . $this->kind . ' WHERE timestamp < @tm', [
 			'bindings' => [
