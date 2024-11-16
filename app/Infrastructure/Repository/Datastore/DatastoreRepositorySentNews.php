@@ -5,6 +5,7 @@ namespace App\Infrastructure\Repository\Datastore;
 use App\Domain\Repository\IRepositorySentNews;
 use App\Domain\Entity\News;
 use App\Domain\Entity\SentNews;
+use App\Domain\Entity\SNSPayload;
 
 class DatastoreRepositorySentNews extends DatastoreRepository implements IRepositorySentNews
 {
@@ -34,6 +35,17 @@ class DatastoreRepositorySentNews extends DatastoreRepository implements IReposi
 			'user_id'	=> $user_id,
 			'timestamp' => $news->getTimestamp(),
 			'url' => $news->getUrl(),
+		]);
+	}
+
+    public function insertSNSPayload(SNSPayload $payload): string
+	{
+		$user_id = config('accounts.twitter.user_id');
+
+		return $this->datastore->insert([
+			'user_id'	=> $user_id,
+			'timestamp' => $payload->getTimestamp(),
+			'url' => $payload->getUrl(),
 		]);
 	}
 
