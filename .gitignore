@@ -1,5 +1,7 @@
 /vendor
 /.idea
+/.devbox
+/devbox.d
 Homestead.json
 Homestead.yaml
 deploy.sh
