@@ -111,6 +111,10 @@ $app->middleware([
 // $app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
+if(env('APP_ENV') == 'local')
+{
+    $app->register(Laravel\Sail\SailServiceProvider::class);
+}
 
  $app->register(App\Providers\RepositoryProvider::class);
 
